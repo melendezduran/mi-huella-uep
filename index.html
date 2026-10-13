@@ -1,110 +1,314 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mi Huella UEP</title>
-    <meta
-      name="description"
-      content="Mi Huella UEP: una experiencia digital para impulsar la participación, la identidad y la conexión con la comunidad."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header class="hero">
-      <nav class="nav container">
-        <div class="brand">Mi Huella UEP</div>
-        <a class="button button-secondary" href="#contacto">Contactar</a>
-      </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Huella UEP Móvil</title>
+    <style>
+        :root {
+            --polar-blue: #1A368F;
+            --polar-light: #F4F7FB;
+            --polar-accent: #00B4D8;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--polar-light);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header-container {
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 25px;
+        }
+        h1 {
+            color: var(--polar-blue);
+            font-size: 26px;
+            margin-bottom: 5px;
+            margin-top: 0;
+        }
+        p.subtitle {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.4;
+            margin-top: 5px;
+        }
+        .search-box {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: 2px solid #E0E7FF;
+            border-radius: 8px;
+            outline: none;
+            color: var(--polar-blue);
+            font-weight: bold;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        select:focus { border-color: var(--polar-accent); }
+        
+        #cardsContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
 
-      <div class="container hero-content">
-        <div class="hero-text">
-          <span class="eyebrow">Innovación • Comunidad • Impacto</span>
-          <h1>Tu huella digital, con propósito.</h1>
-          <p>
-            Creamos experiencias que conectan a personas, proyectos y comunidades,
-            fortaleciendo la identidad y la participación en cada paso.
-          </p>
-          <div class="actions">
-            <a class="button button-primary" href="#proyecto">Conocer más</a>
-            <a class="button button-secondary" href="#contacto">Únete</a>
-          </div>
-        </div>
+        .hero-card {
+            background: white;
+            border-top: 6px solid var(--polar-blue);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 350px;
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        <div class="hero-card">
-          <div class="stat">
-            <strong>+1.200</strong>
-            <span>personas impactadas</span>
-          </div>
-          <div class="stat">
-            <strong>24/7</strong>
-            <span>presencia digital</span>
-          </div>
-          <div class="stat">
-            <strong>100%</strong>
-            <span>acceso público</span>
-          </div>
-        </div>
-      </div>
-    </header>
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-btn:hover { color: #e74c3c; }
+        
+        .strategy-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #777;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .loc-title {
+            color: var(--polar-blue);
+            font-size: 22px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding: 0 15px;
+        }
+        .loc-modality {
+            display: inline-block;
+            background: #E0E7FF;
+            color: var(--polar-blue);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
 
-    <main>
-      <section id="proyecto" class="section container">
-        <div class="section-heading">
-          <span class="eyebrow">Nuestro proyecto</span>
-          <h2>Diseñamos soluciones con sentido social</h2>
-        </div>
+        .funnel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .funnel-step {
+            border-radius: 6px;
+            padding: 12px 10px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        .step-1 { background-color: #1c1a65; width: 100%; } 
+        .step-2 { background-color: #2766c5; width: 85%; }  
+        .step-3 { background-color: #4dc2e6; width: 70%; color: #fff;} 
 
-        <div class="features">
-          <article class="feature-card">
-            <div class="icon">✦</div>
-            <h3>Visibilidad</h3>
-            <p>Presentamos ideas, historias y objetivos con una identidad clara.</p>
-          </article>
+        .f-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.95;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+        .f-value {
+            font-size: 24px;
+            font-weight: 900;
+        }
+        .f-sub {
+            font-size: 12px;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+        
+        .sat-box {
+            margin-top: 15px;
+            background: #FFFAF0;
+            border: 1px solid #FFE082;
+            color: #D48806;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        .sat-val {
+            font-size: 18px;
+            font-weight: 900;
+        }
 
-          <article class="feature-card">
-            <div class="icon">◎</div>
-            <h3>Conexión</h3>
-            <p>Facilitamos la relación entre comunidad, proyectos y oportunidades.</p>
-          </article>
+        .cta-footer {
+            margin-top: 30px;
+            color: #666;
+            font-style: italic;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
 
-          <article class="feature-card">
-            <div class="icon">▣</div>
-            <h3>Impacto</h3>
-            <p>Generamos experiencias útiles, auténticas y fáciles de compartir.</p>
-          </article>
-        </div>
-      </section>
+    <div class="header-container">
+        <h1>Tu Huella en el Aprendizaje</h1>
+        <p class="subtitle">Selecciona y compara hasta 3 localidades para descubrir el impacto de tu gestión en la adopción de nuestra gente.</p>
+    </div>
 
-      <section class="section alt">
-        <div class="container split">
-          <div>
-            <span class="eyebrow">¿Qué buscamos?</span>
-            <h2>Una presencia digital abierta para toda la comunidad.</h2>
-          </div>
-          <p>
-            Mi Huella UEP nació para contar historias, fortalecer vínculos y dar
-            visibilidad a iniciativas que aportan valor a la comunidad universitaria
-            y a la sociedad en general.
-          </p>
-        </div>
-      </section>
-    </main>
+    <div class="search-box">
+        <select id="locSelector" onchange="addCard(this.value)">
+            <option value="">🎯 Selecciona una localidad para añadirla...</option>
+        </select>
+    </div>
 
-    <footer id="contacto" class="footer">
-      <div class="container footer-content">
-        <div>
-          <h3>Mi Huella UEP</h3>
-          <p>Más allá del proyecto: una huella con impacto real.</p>
-        </div>
-        <a class="button button-primary" href="mailto:contacto@ejemplo.com">Contactar</a>
-      </div>
-    </footer>
-  </body>
+    <div id="cardsContainer"></div>
+    
+    <div class="cta-footer">
+        ¡Toma un screenshot de tus embudos de éxito y compártelo con el equipo! 📸
+    </div>
+
+    <script>
+        var selectedLocs = [];
+        
+        var dataLocalidades = {
+            "ADC BARQUISIMET": {"hc": 27, "asis": 22, "pct_cob": 81.5, "pct_activos": 68.2, "hrs": 4.89, "sat": 5.0, "mod": "UEP Móvil"}, "ADC MARACAIBO": {"hc": 17, "asis": 15, "pct_cob": 88.2, "pct_activos": 73.3, "hrs": 5.28, "sat": 5.0, "mod": "UEP Móvil"}, "AG BARQUISIMETO": {"hc": 153, "asis": 124, "pct_cob": 81.0, "pct_activos": 71.0, "hrs": 4.43, "sat": 4.96, "mod": "UEP Móvil"}, "AG. BARINAS": {"hc": 61, "asis": 50, "pct_cob": 82.0, "pct_activos": 58.0, "hrs": 7.7, "sat": 4.98, "mod": "UEP Móvil"}, "AG. BEJUMA": {"hc": 7, "asis": 7, "pct_cob": 100.0, "pct_activos": 57.1, "hrs": 13.29, "sat": 5.0, "mod": "UEP Móvil"}, "AG. CALABOZO": {"hc": 11, "asis": 7, "pct_cob": 63.6, "pct_activos": 57.1, "hrs": 3.02, "sat": 5.0, "mod": "UEP Móvil"}, "AG. CUMANA": {"hc": 50, "asis": 41, "pct_cob": 82.0, "pct_activos": 63.4, "hrs": 3.56, "sat": 4.88, "mod": "UEP Móvil"}, "AG. GUACARA": {"hc": 44, "asis": 29, "pct_cob": 65.9, "pct_activos": 48.3, "hrs": 3.74, "sat": 4.97, "mod": "UEP Móvil"}, "AG. LA QUIZANDA": {"hc": 108, "asis": 80, "pct_cob": 74.1, "pct_activos": 66.2, "hrs": 5.42, "sat": 4.85, "mod": "UEP Móvil"}, "AG. LA YAGUARA": {"hc": 142, "asis": 109, "pct_cob": 76.8, "pct_activos": 53.2, "hrs": 5.14, "sat": 4.99, "mod": "UEP Móvil"}, "AG. LAS GARZAS": {"hc": 96, "asis": 72, "pct_cob": 75.0, "pct_activos": 68.1, "hrs": 2.22, "sat": 5.0, "mod": "UEP Móvil"}, "AG. LOS RUICES": {"hc": 228, "asis": 142, "pct_cob": 62.3, "pct_activos": 72.5, "hrs": 4.57, "sat": 4.99, "mod": "UEP Móvil"}, "AG. MATURIN": {"hc": 64, "asis": 46, "pct_cob": 71.9, "pct_activos": 54.3, "hrs": 1.36, "sat": 5.0, "mod": "UEP Móvil"}, "AG. POLAR II": {"hc": 120, "asis": 93, "pct_cob": 77.5, "pct_activos": 57.0, "hrs": 3.72, "sat": 4.94, "mod": "UEP Móvil"}, "AG. PORLAMAR": {"hc": 60, "asis": 55, "pct_cob": 91.7, "pct_activos": 60.0, "hrs": 1.49, "sat": 5.0, "mod": "UEP Móvil"}, "AG. SAN CRISTOB": {"hc": 77, "asis": 64, "pct_cob": 83.1, "pct_activos": 68.8, "hrs": 7.53, "sat": 4.93, "mod": "UEP Móvil"}, "AG. SAN JACINTO": {"hc": 83, "asis": 65, "pct_cob": 78.3, "pct_activos": 63.1, "hrs": 4.37, "sat": 4.98, "mod": "UEP Móvil"}, "AG. SAN MARTIN": {"hc": 68, "asis": 55, "pct_cob": 80.9, "pct_activos": 65.5, "hrs": 3.98, "sat": 4.93, "mod": "UEP Móvil"}, "AG. TURMERO": {"hc": 137, "asis": 103, "pct_cob": 75.2, "pct_activos": 65.0, "hrs": 3.97, "sat": 4.88, "mod": "UEP Móvil"}, "AG. VALENCIA II": {"hc": 60, "asis": 40, "pct_cob": 66.7, "pct_activos": 50.0, "hrs": 9.85, "sat": 4.9, "mod": "UEP Móvil"}, "AG.LA ISABELICA": {"hc": 51, "asis": 40, "pct_cob": 78.4, "pct_activos": 42.5, "hrs": 2.28, "sat": 4.95, "mod": "UEP Móvil"}, "ALI VALENCIA": {"hc": 887, "asis": 757, "pct_cob": 85.3, "pct_activos": 33.7, "hrs": 5.62, "sat": 4.92, "mod": "UEP Móvil"}, "APC INDVALENCIA": {"hc": 18, "asis": 4, "pct_cob": 22.2, "pct_activos": 100.0, "hrs": 4.08, "sat": 5.0, "mod": "UEP Móvil"}, "APC MIGURT": {"hc": 112, "asis": 83, "pct_cob": 74.1, "pct_activos": 32.5, "hrs": 7.66, "sat": 4.94, "mod": "UEP Móvil"}, "ARROZ CALABOZO": {"hc": 113, "asis": 101, "pct_cob": 89.4, "pct_activos": 46.5, "hrs": 10.7, "sat": 4.99, "mod": "UEP Móvil"}, "CAUCAGUA": {"hc": 560, "asis": 215, "pct_cob": 38.4, "pct_activos": 58.6, "hrs": 5.55, "sat": 4.93, "mod": "UEP Móvil"}, "CENT.EMP.POLAR": {"hc": 0, "asis": 18, "pct_cob": 0.0, "pct_activos": 88.9, "hrs": 4.55, "sat": 5.0, "mod": "UEP Móvil"}, "CEREALES": {"hc": 180, "asis": 144, "pct_cob": 80.0, "pct_activos": 31.9, "hrs": 8.23, "sat": 4.99, "mod": "UEP Móvil"}, "CHIVACOA": {"hc": 672, "asis": 544, "pct_cob": 81.0, "pct_activos": 42.5, "hrs": 4.34, "sat": 4.93, "mod": "UEP Móvil"}, "CONCENTRADOS": {"hc": 31, "asis": 16, "pct_cob": 51.6, "pct_activos": 87.5, "hrs": 3.09, "sat": 4.94, "mod": "UEP Móvil"}, "CST APC": {"hc": 171, "asis": 134, "pct_cob": 78.4, "pct_activos": 84.3, "hrs": 7.48, "sat": 4.94, "mod": "UEP Móvil"}, "CUMANA": {"hc": 4, "asis": 2, "pct_cob": 50.0, "pct_activos": 0.0, "hrs": 0.0, "sat": 5.0, "mod": "UEP Móvil"}, "DANAC": {"hc": 62, "asis": 49, "pct_cob": 79.0, "pct_activos": 36.7, "hrs": 4.2, "sat": 4.8, "mod": "UEP Móvil"}, "FABRIMONCA": {"hc": 21, "asis": 14, "pct_cob": 66.7, "pct_activos": 92.9, "hrs": 3.77, "sat": 5.0, "mod": "UEP Móvil"}, "LIMPIEZA": {"hc": 218, "asis": 181, "pct_cob": 83.0, "pct_activos": 33.1, "hrs": 8.57, "sat": 4.91, "mod": "UEP Móvil"}, "LOS CORTIJOS": {"hc": 42, "asis": 15, "pct_cob": 35.7, "pct_activos": 86.7, "hrs": 3.69, "sat": 4.93, "mod": "UEP Móvil"}, "MARACAIBO": {"hc": 322, "asis": 275, "pct_cob": 85.4, "pct_activos": 45.1, "hrs": 5.96, "sat": 4.95, "mod": "UEP Móvil"}, "MARACAY": {"hc": 163, "asis": 70, "pct_cob": 42.9, "pct_activos": 61.4, "hrs": 5.67, "sat": 5.0, "mod": "UEP Móvil"}, "MARIGUITAR": {"hc": 267, "asis": 224, "pct_cob": 83.9, "pct_activos": 22.8, "hrs": 2.37, "sat": 4.95, "mod": "UEP Móvil"}, "METALGRAFICA": {"hc": 385, "asis": 259, "pct_cob": 67.3, "pct_activos": 40.5, "hrs": 5.26, "sat": 4.93, "mod": "UEP Móvil"}, "MODELO": {"hc": 42, "asis": 36, "pct_cob": 85.7, "pct_activos": 80.6, "hrs": 3.75, "sat": 4.97, "mod": "UEP Móvil"}, "MONAGAS": {"hc": 78, "asis": 57, "pct_cob": 73.1, "pct_activos": 33.3, "hrs": 3.7, "sat": 4.98, "mod": "UEP Móvil"}, "OF. PR. GUACAMA": {"hc": 1, "asis": 1, "pct_cob": 100.0, "pct_activos": 100.0, "hrs": 23.52, "sat": 5.0, "mod": "UEP Móvil"}, "OF. PR. ORIENTE": {"hc": 34, "asis": 18, "pct_cob": 52.9, "pct_activos": 77.8, "hrs": 4.73, "sat": 5.0, "mod": "UEP Móvil"}, "OF. PRINC. SUR": {"hc": 35, "asis": 16, "pct_cob": 45.7, "pct_activos": 81.2, "hrs": 3.24, "sat": 5.0, "mod": "UEP Móvil"}, "OFIC. PPAL. OCC": {"hc": 13, "asis": 10, "pct_cob": 76.9, "pct_activos": 50.0, "hrs": 69.87, "sat": 5.0, "mod": "UEP Móvil"}, "OFIC. PRINCIPAL": {"hc": 174, "asis": 96, "pct_cob": 55.2, "pct_activos": 62.5, "hrs": 5.78, "sat": 4.97, "mod": "UEP Móvil"}, "OFIC.PPAL.ANDES": {"hc": 43, "asis": 31, "pct_cob": 72.1, "pct_activos": 93.5, "hrs": 11.19, "sat": 5.0, "mod": "UEP Móvil"}, "OFIC.PPAL.METRO": {"hc": 6, "asis": 2, "pct_cob": 33.3, "pct_activos": 50.0, "hrs": 1.13, "sat": 5.0, "mod": "UEP Móvil"}, "ORIENTE": {"hc": 624, "asis": 468, "pct_cob": 75.0, "pct_activos": 36.8, "hrs": 5.59, "sat": 4.91, "mod": "UEP Móvil"}, "SAN JOAQUIN": {"hc": 1046, "asis": 745, "pct_cob": 71.2, "pct_activos": 22.1, "hrs": 8.78, "sat": 4.96, "mod": "UEP Móvil"}, "SUC. ARAGUA": {"hc": 263, "asis": 160, "pct_cob": 60.8, "pct_activos": 42.5, "hrs": 5.22, "sat": 5.0, "mod": "UEP Móvil"}, "SUC. BARCELONA": {"hc": 113, "asis": 62, "pct_cob": 54.9, "pct_activos": 45.2, "hrs": 4.14, "sat": 4.9, "mod": "UEP Móvil"}, "SUC. BARQUISIME": {"hc": 9, "asis": 8, "pct_cob": 88.9, "pct_activos": 100.0, "hrs": 2.76, "sat": 5.0, "mod": "UEP Móvil"}, "SUC. CHACAO": {"hc": 2, "asis": 1, "pct_cob": 50.0, "pct_activos": 100.0, "hrs": 8.38, "sat": 5.0, "mod": "UEP Móvil"}, "SUC. MATURIN": {"hc": 19, "asis": 17, "pct_cob": 89.5, "pct_activos": 35.3, "hrs": 3.08, "sat": 5.0, "mod": "UEP Móvil"}, "SUC. PORLAMAR": {"hc": 57, "asis": 46, "pct_cob": 80.7, "pct_activos": 32.6, "hrs": 1.82, "sat": 5.0, "mod": "UEP Móvil"}, "SUC. PT CABELLO": {"hc": 3, "asis": 2, "pct_cob": 66.7, "pct_activos": 50.0, "hrs": 14.25, "sat": 5.0, "mod": "UEP Móvil"}, "SUC. S.CRISTOBA": {"hc": 22, "asis": 21, "pct_cob": 95.5, "pct_activos": 38.1, "hrs": 5.22, "sat": 5.0, "mod": "UEP Móvil"}, "SUC. YARACUY": {"hc": 219, "asis": 161, "pct_cob": 73.5, "pct_activos": 31.7, "hrs": 6.87, "sat": 4.97, "mod": "UEP Móvil"}, "SUPERENVASES": {"hc": 207, "asis": 111, "pct_cob": 53.6, "pct_activos": 30.6, "hrs": 3.93, "sat": 5.0, "mod": "UEP Móvil"}, "TRIGO MCBO": {"hc": 187, "asis": 167, "pct_cob": 89.3, "pct_activos": 50.3, "hrs": 5.01, "sat": 4.98, "mod": "UEP Móvil"}, "TURMERO": {"hc": 721, "asis": 534, "pct_cob": 74.1, "pct_activos": 31.3, "hrs": 5.85, "sat": 4.93, "mod": "UEP Móvil"}, "ADC LA URBINA": {"hc": 32, "asis": 22, "pct_cob": 68.8, "pct_activos": 40.9, "hrs": 10.96, "sat": 4.91, "mod": "Sesiones"}, "ADC VALENCIA": {"hc": 47, "asis": 37, "pct_cob": 78.7, "pct_activos": 70.3, "hrs": 5.5, "sat": 4.86, "mod": "Sesiones"}, "AG ACARIGUA": {"hc": 49, "asis": 45, "pct_cob": 91.8, "pct_activos": 62.2, "hrs": 2.23, "sat": 5.0, "mod": "Sesiones"}, "AG SAN FELIPE": {"hc": 29, "asis": 22, "pct_cob": 75.9, "pct_activos": 63.6, "hrs": 4.6, "sat": 5.0, "mod": "Sesiones"}, "AG SAN FERNANDO": {"hc": 29, "asis": 16, "pct_cob": 55.2, "pct_activos": 43.8, "hrs": 1.1, "sat": 4.87, "mod": "Sesiones"}, "AG. ANACO": {"hc": 22, "asis": 18, "pct_cob": 81.8, "pct_activos": 27.8, "hrs": 1.41, "sat": 5.0, "mod": "Sesiones"}, "AG. CARORA": {"hc": 13, "asis": 11, "pct_cob": 84.6, "pct_activos": 72.7, "hrs": 2.33, "sat": 5.0, "mod": "Sesiones"}, "AG. CARRIZALES": {"hc": 43, "asis": 31, "pct_cob": 72.1, "pct_activos": 54.8, "hrs": 4.4, "sat": 5.0, "mod": "Sesiones"}, "AG. CARUPANO": {"hc": 26, "asis": 22, "pct_cob": 84.6, "pct_activos": 40.9, "hrs": 2.29, "sat": 5.0, "mod": "Sesiones"}, "AG. CATIA": {"hc": 38, "asis": 31, "pct_cob": 81.6, "pct_activos": 51.6, "hrs": 3.61, "sat": 4.97, "mod": "Sesiones"}, "AG. CDA BOLIVAR": {"hc": 36, "asis": 21, "pct_cob": 58.3, "pct_activos": 33.3, "hrs": 2.53, "sat": 4.95, "mod": "Sesiones"}, "AG. CORO": {"hc": 31, "asis": 21, "pct_cob": 67.7, "pct_activos": 47.6, "hrs": 2.56, "sat": 4.81, "mod": "Sesiones"}, "AG. EL TIGRE": {"hc": 34, "asis": 26, "pct_cob": 76.5, "pct_activos": 61.5, "hrs": 1.75, "sat": 5.0, "mod": "Sesiones"}, "AG. EL VIGIA": {"hc": 29, "asis": 10, "pct_cob": 34.5, "pct_activos": 60.0, "hrs": 3.94, "sat": 5.0, "mod": "Sesiones"}, "AG. GUANARE": {"hc": 25, "asis": 23, "pct_cob": 92.0, "pct_activos": 52.2, "hrs": 1.73, "sat": 5.0, "mod": "Sesiones"}, "AG. GUARENAS": {"hc": 49, "asis": 38, "pct_cob": 77.6, "pct_activos": 52.6, "hrs": 2.97, "sat": 4.63, "mod": "Sesiones"}, "AG. GUASDUALITO": {"hc": 5, "asis": 5, "pct_cob": 100.0, "pct_activos": 60.0, "hrs": 2.19, "sat": 4.8, "mod": "Sesiones"}, "AG. LA GUAIRA": {"hc": 43, "asis": 35, "pct_cob": 81.4, "pct_activos": 57.1, "hrs": 2.61, "sat": 5.0, "mod": "Sesiones"}, "AG. LA PEDRERA": {"hc": 12, "asis": 8, "pct_cob": 66.7, "pct_activos": 37.5, "hrs": 2.81, "sat": 4.75, "mod": "Sesiones"}, "AG. LA VICTORIA": {"hc": 13, "asis": 12, "pct_cob": 92.3, "pct_activos": 50.0, "hrs": 5.16, "sat": 5.0, "mod": "Sesiones"}, "AG. LAGUNILLAS": {"hc": 20, "asis": 17, "pct_cob": 85.0, "pct_activos": 70.6, "hrs": 3.84, "sat": 5.0, "mod": "Sesiones"}, "AG. MERIDA": {"hc": 56, "asis": 37, "pct_cob": 66.1, "pct_activos": 64.9, "hrs": 3.48, "sat": 4.88, "mod": "Sesiones"}, "AG. NUEVA LUCHA": {"hc": 4, "asis": 4, "pct_cob": 100.0, "pct_activos": 50.0, "hrs": 0.81, "sat": 3.75, "mod": "Sesiones"}, "AG. OCUMARE": {"hc": 56, "asis": 46, "pct_cob": 82.1, "pct_activos": 43.5, "hrs": 4.45, "sat": 5.0, "mod": "Sesiones"}, "AG. PTO ORDAZ": {"hc": 69, "asis": 49, "pct_cob": 71.0, "pct_activos": 42.9, "hrs": 4.46, "sat": 4.98, "mod": "Sesiones"}, "AG. PTO. CABELL": {"hc": 20, "asis": 16, "pct_cob": 80.0, "pct_activos": 50.0, "hrs": 3.69, "sat": 4.75, "mod": "Sesiones"}, "AG. PUNTO FIJO": {"hc": 0, "asis": 23, "pct_cob": 0.0, "pct_activos": 73.9, "hrs": 4.66, "sat": 5.0, "mod": "Sesiones"}, "AG. QUIBOR": {"hc": 11, "asis": 11, "pct_cob": 100.0, "pct_activos": 63.6, "hrs": 2.58, "sat": 5.0, "mod": "Sesiones"}, "AG. SAN CARLOS": {"hc": 18, "asis": 15, "pct_cob": 83.3, "pct_activos": 53.3, "hrs": 2.33, "sat": 5.0, "mod": "Sesiones"}, "AG. SAN FELIX": {"hc": 31, "asis": 23, "pct_cob": 74.2, "pct_activos": 34.8, "hrs": 1.78, "sat": 4.78, "mod": "Sesiones"}, "AG. SAN J MORRO": {"hc": 7, "asis": 7, "pct_cob": 100.0, "pct_activos": 28.6, "hrs": 3.6, "sat": 5.0, "mod": "Sesiones"}, "AG. SOCOPO": {"hc": 9, "asis": 5, "pct_cob": 55.6, "pct_activos": 20.0, "hrs": 0.0, "sat": 5.0, "mod": "Sesiones"}, "AG. TACARIGUA": {"hc": 18, "asis": 14, "pct_cob": 77.8, "pct_activos": 50.0, "hrs": 3.29, "sat": 5.0, "mod": "Sesiones"}, "AG. TINAQUILLO": {"hc": 9, "asis": 6, "pct_cob": 66.7, "pct_activos": 66.7, "hrs": 3.47, "sat": 5.0, "mod": "Sesiones"}, "AG. TUCACAS": {"hc": 10, "asis": 7, "pct_cob": 70.0, "pct_activos": 57.1, "hrs": 1.79, "sat": 5.0, "mod": "Sesiones"}, "AG. TUREN": {"hc": 7, "asis": 7, "pct_cob": 100.0, "pct_activos": 57.1, "hrs": 2.09, "sat": 4.71, "mod": "Sesiones"}, "AG. UPATA": {"hc": 11, "asis": 8, "pct_cob": 72.7, "pct_activos": 25.0, "hrs": 0.53, "sat": 5.0, "mod": "Sesiones"}, "AG. UREÑA": {"hc": 8, "asis": 4, "pct_cob": 50.0, "pct_activos": 25.0, "hrs": 27.48, "sat": 5.0, "mod": "Sesiones"}, "AG. VALERA": {"hc": 44, "asis": 31, "pct_cob": 70.5, "pct_activos": 77.4, "hrs": 3.13, "sat": 5.0, "mod": "Sesiones"}, "AG.VALLE LA PAS": {"hc": 33, "asis": 28, "pct_cob": 84.8, "pct_activos": 57.1, "hrs": 1.0, "sat": 4.93, "mod": "Sesiones"}, "AGENCIA CABIMAS": {"hc": 44, "asis": 35, "pct_cob": 79.5, "pct_activos": 51.4, "hrs": 25.65, "sat": 4.97, "mod": "Sesiones"}, "AGENCIA LA FRIA": {"hc": 15, "asis": 10, "pct_cob": 66.7, "pct_activos": 50.0, "hrs": 4.09, "sat": 5.0, "mod": "Sesiones"}, "AGENCIA PERIJA": {"hc": 5, "asis": 5, "pct_cob": 100.0, "pct_activos": 60.0, "hrs": 2.14, "sat": 4.5, "mod": "Sesiones"}, "AGENCIA RUBIO": {"hc": 4, "asis": 3, "pct_cob": 75.0, "pct_activos": 33.3, "hrs": 4.43, "sat": 5.0, "mod": "Sesiones"}, "CL MARACAIBO SU": {"hc": 33, "asis": 22, "pct_cob": 66.7, "pct_activos": 40.9, "hrs": 6.62, "sat": 5.0, "mod": "Sesiones"}, "POMAR": {"hc": 75, "asis": 56, "pct_cob": 74.7, "pct_activos": 39.3, "hrs": 2.63, "sat": 4.93, "mod": "Sesiones"}, "SAN PEDRO": {"hc": 158, "asis": 121, "pct_cob": 76.6, "pct_activos": 27.3, "hrs": 4.39, "sat": 4.78, "mod": "Sesiones"}, "SILOS ARAURE": {"hc": 36, "asis": 27, "pct_cob": 75.0, "pct_activos": 59.3, "hrs": 14.47, "sat": 5.0, "mod": "Sesiones"}, "SUBDEP EL TOCUY": {"hc": 5, "asis": 3, "pct_cob": 60.0, "pct_activos": 66.7, "hrs": 10.96, "sat": 5.0, "mod": "Sesiones"}, "SUBDEP TOVAR": {"hc": 6, "asis": 6, "pct_cob": 100.0, "pct_activos": 50.0, "hrs": 8.31, "sat": 4.67, "mod": "Sesiones"}, "SUBDEP TUMEREMO": {"hc": 11, "asis": 0, "pct_cob": 0.0, "pct_activos": 0.0, "hrs": 0.0, "sat": 0.0, "mod": "Sesiones"}, "SUC. C. BOLIVAR": {"hc": 40, "asis": 23, "pct_cob": 57.5, "pct_activos": 8.7, "hrs": 3.12, "sat": 4.55, "mod": "Sesiones"}, "SUC. CORO": {"hc": 19, "asis": 13, "pct_cob": 68.4, "pct_activos": 30.8, "hrs": 3.49, "sat": 5.0, "mod": "Sesiones"}, "SUC. EL VIGIA": {"hc": 26, "asis": 12, "pct_cob": 46.2, "pct_activos": 58.3, "hrs": 6.0, "sat": 5.0, "mod": "Sesiones"}, "SUC. LA YAGUARA": {"hc": 96, "asis": 71, "pct_cob": 74.0, "pct_activos": 36.6, "hrs": 7.64, "sat": 5.0, "mod": "Sesiones"}, "SUC. MARACAIBO": {"hc": 57, "asis": 52, "pct_cob": 91.2, "pct_activos": 44.2, "hrs": 6.13, "sat": 4.89, "mod": "Sesiones"}, "SUC. PTO FIJO": {"hc": 1, "asis": 1, "pct_cob": 100.0, "pct_activos": 0.0, "hrs": 0.0, "sat": 5.0, "mod": "Sesiones"}, "SUC. S.FERNANDO": {"hc": 12, "asis": 11, "pct_cob": 91.7, "pct_activos": 18.2, "hrs": 1.49, "sat": 4.55, "mod": "Sesiones"}, "SUC. VALENCIA": {"hc": 42, "asis": 38, "pct_cob": 90.5, "pct_activos": 21.1, "hrs": 1.75, "sat": 4.68, "mod": "Sesiones"}
+        };
+
+        var selectorEl = document.getElementById('locSelector');
+        Object.keys(dataLocalidades).sort().forEach(function(loc) {
+            var option = document.createElement('option');
+            option.value = loc;
+            option.textContent = loc;
+            selectorEl.appendChild(option);
+        });
+
+        window.animateValue = function(id, start, end, duration, decimals) {
+            var obj = document.getElementById(id);
+            if(!obj) return;
+            var startTimestamp = null;
+            var step = function(timestamp) {
+                if (!startTimestamp) startTimestamp = timestamp;
+                var progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                var currentVal = progress * (end - start) + start;
+                obj.innerHTML = currentVal.toFixed(decimals).replace('.', ',');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.innerHTML = end.toFixed(decimals).replace('.', ',');
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        window.removeCard = function(locName) {
+            selectedLocs = selectedLocs.filter(function(l) { return l !== locName; });
+            var cardId = "card-" + locName.replace(/\s+/g, '-');
+            var cardEl = document.getElementById(cardId);
+            if(cardEl) {
+                cardEl.remove();
+            }
+        };
+
+        window.addCard = function(locName) {
+            if(!locName) return;
+            if(selectedLocs.includes(locName)) {
+                document.getElementById('locSelector').value = "";
+                return;
+            }
+            selectedLocs.push(locName);
+            if(selectedLocs.length > 3) {
+                var oldest = selectedLocs.shift();
+                removeCard(oldest);
+                selectedLocs.push(locName);
+            }
+            var data = dataLocalidades[locName];
+            var cardIdBase = locName.replace(/\s+/g, '-');
+            var cardId = "card-" + cardIdBase;
+            var satDisplay = (data.sat === 0 || isNaN(data.sat)) ? "N/A" : data.sat.toFixed(2).replace('.', ',');
+
+            var cardHTML = `
+                <div class="hero-card" id="${cardId}">
+                    <button class="close-btn" onclick="removeCard('${locName}')">✖</button>
+                    <div class="strategy-label">Objetivo: Ampliación de la Biblioteca UEP</div>
+                    <h2 class="loc-title">${locName}</h2>
+                    <div class="loc-modality">Modalidad: ${data.mod}</div>
+                    
+                    <div class="funnel-container">
+                        <div class="funnel-step step-1">
+                            <div class="f-title">Personas Atendidas</div>
+                            <div class="f-value" id="lbl-asis-${cardIdBase}">0</div>
+                            <div class="f-sub">(<span id="lbl-cob-${cardIdBase}">0</span>% de tu localidad)</div>
+                        </div>
+                        <div class="funnel-step step-2">
+                            <div class="f-title">% Usuarios Activos Biblioteca UEP</div>
+                            <div class="f-value"><span id="lbl-pct-${cardIdBase}">0</span>%</div>
+                        </div>
+                        <div class="funnel-step step-3">
+                            <div class="f-title">Promedio de horas de uso de la Biblioteca<br>UEP por usuario al mes</div>
+                            <div class="f-value" id="lbl-hrs-${cardIdBase}">0</div>
+                        </div>
+                    </div>
+
+                    <div class="sat-box">
+                        ⭐ Satisfacción de la Experiencia: <span class="sat-val"><span id="lbl-sat-${cardIdBase}">0</span> / 5</span>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('cardsContainer').insertAdjacentHTML('beforeend', cardHTML);
+            animateValue(`lbl-asis-${cardIdBase}`, 0, data.asis, 800, 0);
+            animateValue(`lbl-cob-${cardIdBase}`, 0, data.pct_cob, 900, 1);
+            animateValue(`lbl-pct-${cardIdBase}`, 0, data.pct_activos, 1000, 1);
+            animateValue(`lbl-hrs-${cardIdBase}`, 0, data.hrs, 1200, 2);
+            if (satDisplay !== "N/A") {
+                animateValue(`lbl-sat-${cardIdBase}`, 0, data.sat, 1500, 2);
+            } else {
+                document.getElementById(`lbl-sat-${cardIdBase}`).innerText = "N/A";
+            }
+            document.getElementById('locSelector').value = "";
+        };
+    </script>
+</body>
 </html>
